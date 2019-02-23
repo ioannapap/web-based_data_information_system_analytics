@@ -8,7 +8,7 @@ mysqldump -u root -p --no-data dbname > schema.sql
 
 Create a full backup
 ```bash
-mysqldump -u root -p --no-data dbname > schema.sql
+mysqldump -u root -p dbname > schema.sql
 ```
 
 Run mysql script
