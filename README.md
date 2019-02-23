@@ -10,3 +10,8 @@ Create a full backup
 ```bash
 mysqldump -u root -p --no-data dbname > schema.sql
 ```
+
+Run mysql script
+```bash
+mysql -u username -p database_name < file.sql
+```

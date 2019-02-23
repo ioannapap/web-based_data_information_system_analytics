@@ -72,49 +72,48 @@ def generate_homicides_table():
             "path": "../raw_data/Homicide_0-14.csv",
             "age_from": 0,
             "age_to": 14,
-            "gender": "//N"
+            "gender": None
         },
         {
             "path": "../raw_data/Homicide_15-29.csv",
             "age_from": 15,
             "age_to": 29,
-            "gender": "//N"
+            "gender": None
         },
         {
             "path": "../raw_data/Homicide_30-44.csv",
             "age_from": 30,
             "age_to": 44,
-            "gender": "//N"
+            "gender": None
         },
         {
             "path": "../raw_data/Homicide_45-59.csv",
             "age_from": 45,
             "age_to": 59,
-            "gender": "//N"
+            "gender": None
         },
         {
             "path": "../raw_data/Homicide_60-123.csv",
             "age_from": 60,
             "age_to": 123,
-            "gender": "//N"
+            "gender": None
         },
         {
             "path": "../raw_data/Murdered_Females.csv",
-            "age_from": "//N",
-            "age_to": "//N",
+            "age_from": None,
+            "age_to": None,
             "gender": "F"
         },
         {
             "path": "../raw_data/Murdered_Males.csv",
-            "age_from": "//N",
-            "age_to": "//N",
+            "age_from": None,
+            "age_to": None,
             "gender": "M"
         },
-
     ]
-    for raw_file in raw_files:
-        homicides_data = []
 
+    homicides_data = []
+    for raw_file in raw_files:
         df = pd.read_csv(raw_file["path"])
         for row in df.to_dict(orient='records'):
             country = row['country'].lower()
@@ -135,11 +134,10 @@ def generate_homicides_table():
                     "percentage": percentage
                 })
 
-        df = pd.DataFrame(data=homicides_data)
-        # start id from 1 instead of 0
-        df.index = np.arange(1, len(df) + 1)
-        df.to_csv("../fixed_data/" +
-                  raw_file["path"].split("/")[-1], index_label="id")
+    df = pd.DataFrame(data=homicides_data)
+    # start id from 1 instead of 0
+    df.index = np.arange(1, len(df) + 1)
+    df.to_csv("../fixed_data/homicides.csv", index_label="id")
 
 
 def generate_political_culture():
