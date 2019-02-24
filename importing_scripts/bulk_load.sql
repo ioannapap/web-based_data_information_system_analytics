@@ -25,7 +25,7 @@ INTO TABLE murdersdb.homicides
 FIELDS TERMINATED BY ',' ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
-(id,@vage_from,@vage_to,country_id,@vgender,`percentage`,`year`)
+(id,@vage_from,@vage_to,country_id,deathnums,@vgender,`year`)
 SET
 age_from = nullif(@vage_from,''),
 age_to = nullif(@vage_to,''),

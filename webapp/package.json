@@ -1,0 +1,27 @@
+{
+  "name": "murders_analytics",
+  "version": "1.0.0",
+  "description": "Murder data analysis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioannapap/murders_analytics.git"
+  },
+  "keywords": [
+    "analytics",
+    "murders"
+  ],
+  "author": "kp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ioannapap/murders_analytics/issues"
+  },
+  "homepage": "https://github.com/ioannapap/murders_analytics#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
+}

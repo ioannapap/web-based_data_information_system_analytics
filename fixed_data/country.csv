@@ -1,210 +1,210 @@
 id,continent_id,name
-1,3,philippines
-2,2,zimbabwe
-3,5,saint kitts and nevis
-4,4,finland
-5,1,"macedonia, fyr"
-6,2,comoros
-7,2,rwanda
-8,5,dominica
-9,5,saint vincent and the grenadines
-10,4,spain
-11,6,solomon islands
-12,2,lesotho
-13,1,"congo, dem. rep."
-14,1,russia
-15,1,united states
-16,1,north korea
-17,3,united arab emirates
-18,4,malta
-19,2,sao tome and principe
-20,2,sierra leone
-21,1,timor-leste
-22,2,egypt
-23,1,burkina faso
-24,4,belarus
-25,4,sweden
-26,7,uruguay
-27,4,ukraine
-28,7,brazil
-29,3,syria
-30,6,new zealand
-31,7,suriname
-32,2,niger
-33,2,mali
-34,3,saudi arabia
-35,5,antigua and barbuda
-36,7,paraguay
-37,1,kyrgyz republic
-38,3,turkey
-39,4,denmark
-40,7,chile
-41,6,australia
-42,3,china
-43,2,gambia
-44,2,algeria
-45,2,madagascar
-46,4,andorra
-47,1,"korea, rep."
-48,4,moldova
-49,1,cote d'ivoire
-50,2,ethiopia
-51,1,niue
-52,2,chad
-53,3,bangladesh
-54,7,colombia
-55,1,"korea, dem. rep."
-56,7,bolivia
-57,2,djibouti
-58,3,bahrain
-59,4,slovenia
-60,1,lao
-61,1,czech rep.
-62,7,argentina
-63,1,czechoslovakia
-64,2,botswana
-65,3,yemen
-66,6,kiribati
-67,2,south africa
-68,2,libya
-69,4,azerbaijan
-70,4,serbia
-71,6,samoa
-72,1,west germany
-73,1,central african rep.
-74,1,"yemen, rep."
-75,2,central african republic
-76,4,greece
-77,5,haiti
-78,2,mauritius
-79,2,namibia
-80,4,hungary
-81,3,pakistan
-82,3,maldives
-83,2,mozambique
-84,3,qatar
-85,4,portugal
-86,6,tonga
-87,7,peru
-88,5,el salvador
-89,1,yugoslavia
-90,3,jordan
-91,1,"congo, rep."
-92,4,georgia
-93,1,slovak republic
-94,4,united kingdom
-95,6,marshall islands
-96,6,vanuatu
-97,1,serbia and montenegro
-98,3,singapore
-99,2,benin
-100,6,fiji
-101,3,kazakhstan
-102,2,senegal
-103,7,ecuador
-104,2,malawi
-105,2,angola
-106,5,guatemala
-107,4,romania
-108,5,belize
-109,4,luxembourg
-110,1,"micronesia, fed. sts."
-111,2,morocco
-112,1,czech republic
-113,2,guinea-bissau
-114,5,mexico
-115,4,belgium
-116,3,malaysia
-117,3,india
-118,5,honduras
-119,2,seychelles
-120,5,barbados
-121,4,iceland
-122,5,saint lucia
-123,2,togo
-124,4,ireland
-125,5,costa rica
-126,4,netherlands
-127,3,iraq
-128,5,jamaica
-129,6,papua new guinea
-130,2,tunisia
-131,6,nauru
-132,6,palau
-133,4,cyprus
-134,4,montenegro
-135,4,san marino
-136,1,dominican rep.
-137,4,latvia
-138,2,tanzania
-139,3,kuwait
-140,2,gabon
-141,2,zambia
-142,6,tuvalu
-143,3,vietnam
-144,1,totalt
-145,2,cape verde
-146,4,croatia
-147,2,cameroon
-148,3,indonesia
-149,3,uzbekistan
-150,4,estonia
-151,7,venezuela
-152,7,guyana
-153,4,albania
-154,3,afghanistan
-155,1,myanmar
-156,2,uganda
-157,1,palestine
-158,4,france
-159,4,monaco
-160,5,grenada
-161,5,dominican republic
-162,3,israel
-163,3,cambodia
-164,2,equatorial guinea
-165,2,nigeria
-166,4,lithuania
-167,3,tajikistan
-168,4,switzerland
-169,4,poland
-170,3,turkmenistan
-171,2,liberia
-172,3,japan
-173,4,austria
-174,2,mauritania
-175,5,bahamas
-176,2,somalia
-177,4,italy
-178,3,lebanon
-179,4,bulgaria
-180,2,burundi
-181,3,bhutan
-182,3,sri lanka
-183,2,ghana
-184,3,oman
-185,2,guinea
-186,2,eritrea
-187,4,bosnia and herzegovina
-188,3,iran
-189,2,swaziland
-190,5,canada
-191,3,nepal
-192,3,thailand
-193,3,kyrgyzstan
-194,1,cook is
-195,4,germany
-196,2,kenya
-197,1,south korea
-198,4,norway
-199,5,nicaragua
-200,5,cuba
-201,3,brunei
-202,3,laos
-203,3,mongolia
-204,1,ussr
-205,4,armenia
-206,5,panama
-207,5,trinidad and tobago
-208,1,east germany
-209,2,sudan
+1,4,norway
+2,2,uganda
+3,4,hungary
+4,2,somalia
+5,4,albania
+6,3,thailand
+7,2,benin
+8,2,malawi
+9,2,tunisia
+10,4,andorra
+11,1,central african rep.
+12,3,iraq
+13,4,ukraine
+14,1,burkina faso
+15,3,bangladesh
+16,5,grenada
+17,3,japan
+18,5,antigua and barbuda
+19,2,ethiopia
+20,3,oman
+21,4,austria
+22,2,guinea
+23,3,turkey
+24,4,bosnia and herzegovina
+25,6,marshall islands
+26,4,azerbaijan
+27,3,lebanon
+28,4,san marino
+29,1,"congo, rep."
+30,1,"korea, dem. rep."
+31,4,croatia
+32,2,mali
+33,1,czech rep.
+34,3,vietnam
+35,6,solomon islands
+36,2,gambia
+37,2,swaziland
+38,2,comoros
+39,4,montenegro
+40,2,nigeria
+41,4,italy
+42,4,latvia
+43,4,belarus
+44,4,lithuania
+45,5,trinidad and tobago
+46,2,south africa
+47,2,ghana
+48,2,chad
+49,2,algeria
+50,1,north korea
+51,2,kenya
+52,1,cook is
+53,3,saudi arabia
+54,5,el salvador
+55,3,afghanistan
+56,3,mongolia
+57,3,brunei
+58,3,tajikistan
+59,5,costa rica
+60,1,yugoslavia
+61,7,bolivia
+62,3,philippines
+63,3,pakistan
+64,3,kyrgyzstan
+65,4,spain
+66,3,singapore
+67,4,monaco
+68,2,namibia
+69,2,angola
+70,2,togo
+71,2,sao tome and principe
+72,1,"korea, rep."
+73,3,iran
+74,2,sierra leone
+75,4,france
+76,5,guatemala
+77,3,nepal
+78,2,sudan
+79,2,central african republic
+80,3,kazakhstan
+81,5,saint vincent and the grenadines
+82,1,kyrgyz republic
+83,1,east germany
+84,2,morocco
+85,3,yemen
+86,1,myanmar
+87,5,canada
+88,6,new zealand
+89,2,madagascar
+90,1,czechoslovakia
+91,1,"yemen, rep."
+92,5,bahamas
+93,4,greece
+94,4,malta
+95,4,germany
+96,1,lao
+97,3,malaysia
+98,2,eritrea
+99,2,liberia
+100,1,palestine
+101,1,dominican rep.
+102,5,saint lucia
+103,3,qatar
+104,2,gabon
+105,6,tonga
+106,2,niger
+107,6,kiribati
+108,6,papua new guinea
+109,6,australia
+110,4,estonia
+111,2,seychelles
+112,5,saint kitts and nevis
+113,5,dominican republic
+114,4,georgia
+115,2,cape verde
+116,2,zimbabwe
+117,4,belgium
+118,2,egypt
+119,3,cambodia
+120,4,bulgaria
+121,1,serbia and montenegro
+122,6,tuvalu
+123,3,sri lanka
+124,3,israel
+125,3,indonesia
+126,1,"macedonia, fyr"
+127,4,slovenia
+128,7,argentina
+129,4,ireland
+130,3,kuwait
+131,1,cote d'ivoire
+132,2,mauritania
+133,4,portugal
+134,3,bhutan
+135,6,samoa
+136,4,romania
+137,2,lesotho
+138,7,ecuador
+139,2,djibouti
+140,4,luxembourg
+141,3,uzbekistan
+142,4,sweden
+143,1,"congo, dem. rep."
+144,3,bahrain
+145,5,barbados
+146,5,mexico
+147,1,czech republic
+148,7,guyana
+149,1,west germany
+150,3,turkmenistan
+151,1,timor-leste
+152,2,rwanda
+153,2,equatorial guinea
+154,4,armenia
+155,3,laos
+156,6,palau
+157,5,jamaica
+158,5,dominica
+159,1,slovak republic
+160,2,senegal
+161,4,moldova
+162,6,vanuatu
+163,7,suriname
+164,4,cyprus
+165,4,switzerland
+166,1,russia
+167,1,"micronesia, fed. sts."
+168,7,colombia
+169,3,maldives
+170,2,burundi
+171,4,iceland
+172,2,guinea-bissau
+173,3,jordan
+174,1,totalt
+175,4,united kingdom
+176,3,united arab emirates
+177,3,china
+178,7,peru
+179,5,haiti
+180,5,honduras
+181,2,mozambique
+182,4,finland
+183,2,tanzania
+184,4,denmark
+185,2,mauritius
+186,4,netherlands
+187,5,nicaragua
+188,7,uruguay
+189,7,brazil
+190,2,libya
+191,2,zambia
+192,3,india
+193,5,cuba
+194,5,panama
+195,6,fiji
+196,4,serbia
+197,4,poland
+198,2,cameroon
+199,6,nauru
+200,1,ussr
+201,1,south korea
+202,7,paraguay
+203,5,belize
+204,7,chile
+205,2,botswana
+206,1,niue
+207,3,syria
+208,1,united states
+209,7,venezuela

@@ -58,7 +58,7 @@ CREATE TABLE `homicides` (
   `gender` varchar(1) DEFAULT NULL COMMENT '''f'' or ''m'' for females and males',
   `age_from` int(10) unsigned DEFAULT NULL COMMENT 'age range from',
   `age_to` int(10) unsigned DEFAULT NULL COMMENT 'age range to',
-  `percentage` decimal(6,4) DEFAULT NULL COMMENT 'percentage is homicides over 100k deaths',
+  `deathnums` decimal(6,4) DEFAULT NULL COMMENT 'deathnums is homicides over 100k deaths',
   `country_id` int(10) unsigned NOT NULL,
   `year` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -76,7 +76,7 @@ DROP TABLE IF EXISTS `political_culture`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `political_culture` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `index` decimal(6,4) NOT NULL COMMENT 'percentage - value of political culture',
+  `index` decimal(6,4) NOT NULL COMMENT 'deathnums - value of political culture',
   `country_id` int(10) unsigned NOT NULL,
   `year` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),

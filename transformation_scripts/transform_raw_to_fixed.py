@@ -123,7 +123,7 @@ def generate_homicides_table():
                 year = int(key)
                 if np.isnan(row[key]):
                     continue
-                percentage = row[key]
+                deathnums = row[key]
 
                 homicides_data.append({
                     "country_id": countries[countries["name"] == country]["id"].tolist()[0],
@@ -131,7 +131,7 @@ def generate_homicides_table():
                     "gender": raw_file["gender"],
                     "age_from": raw_file["age_from"],
                     "age_to": raw_file["age_to"],
-                    "percentage": percentage
+                    "deathnums": deathnums
                 })
 
     df = pd.DataFrame(data=homicides_data)
