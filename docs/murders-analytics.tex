@@ -1,0 +1,83 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[english]{isodate}
+\usepackage[parfill]{parskip}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\usepackage{pdfpages}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+
+\renewcommand\lstlistingname{Quelltext} % Change language of section name
+
+\lstset{ % Setup for typing starlet code
+	language=c,
+	basicstyle=\small\sffamily,
+	numbers=left,
+ 	numberstyle=\tiny,
+	frame=tb,
+	tabsize=2,
+	columns=fixed,
+	showstringspaces=false,
+	showtabs=false,
+	keepspaces,
+	commentstyle=\color{red},
+	keywordstyle=\color{blue}
+}
+
+\title{%
+  \huge Murders Analytics \\
+\large A full stack web presentation for murders data}
+
+\author{Kouveris N. Dimitrios, 2730 \\
+Neiros Konstantinos, 1234 \\
+Papagianni Ioannina, 1234}
+
+\date{2019\\February}
+
+\begin{document}
+% cover page
+\pagenumbering{gobble}
+\maketitle
+\newpage
+
+% settings for the document
+\pagenumbering{arabic}
+\doublespacing
+
+\tableofcontents
+\singlespacing
+
+\newpage
+
+\section{Introduction}
+Murders analytics is a full stack web application built as a project on advanced
+database technologies and applications course at the department of Computer Science
+and Engineering, University of Ioannina. The main purpose of this application is
+to provide a web interface for interacting with a database and creating charts
+that provide useful analytics related to murders.
+
+\section{Application parts}
+The application consists of a dedicated database server, a web application API
+server and a static files server.
+
+\subsubsection{Database}
+The database server is a dedicated server on which the main running application
+is a MySql database server. There are many choices for a MySql ranging from linux
+to windows. Our choice was Ubuntu 18.04.2 LTS as a database server.
+
+\subsubsection{Backend - API}
+The API server is used for direct communication with the database. The API 
+is written in node.js.
+
+\subsubsection{Frontend}
+The Static server is used for serving the frontend files and fetching data from
+the API. Frontend static files are html, css, javascript and media files served by NGINX.
+
+\end{document}

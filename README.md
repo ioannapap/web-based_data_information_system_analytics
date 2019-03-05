@@ -15,3 +15,8 @@ Run mysql script
 ```bash
 mysql -u username -p database_name < file.sql
 ```
+
+## Run database server
+```bash
+VBoxManage startvm 'Dedicated MySQL @ Ubuntu 18.04' --type headless
+```
