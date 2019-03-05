@@ -80,4 +80,34 @@ is written in node.js.
 The Static server is used for serving the frontend files and fetching data from
 the API. Frontend static files are html, css, javascript and media files served by NGINX.
 
+
+\newpage
+\section{Server configuration}
+
+\subsubsection{Database}
+Database is hosted on Ubuntu 18.04.2 LTS. Has 1 CPU Core and 1 GB RAM.
+Host: 192.168.1.10\\
+User: Ken\\
+Password: 123456
+
+\begin{verbatim}
+apt install mysql-server
+mysql_secure_installation
+# user = root
+# password = 12345678
+systemctl enable mysql
+
+ufw allow 3306
+
+vim /etc/mysql/mysql.conf.d/mysqld.cnf
+# bind-address=192.168.1.10
+
+mysql -u root -p
+> CREATE USER 'sysdba'@'%' IDENTIFIED BY '12345678aA!';
+> GRANT ALL PRIVILEGES ON *.* TO 'sysdba'@'%' WITH GRANT OPTION;
+> FLUSH PRIVILEGES;
+
+\end{verbatim}
+
+
 \end{document}
