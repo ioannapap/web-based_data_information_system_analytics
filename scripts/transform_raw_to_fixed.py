@@ -1,8 +1,18 @@
 #!/usr/bin/env python
 
+"""
+This script transform the raw datasets to clean comma
+separated files ready to be imported to database.
+
+The raw files can be found on:
+https://cdn.dimkouv.com/raw_murders_analytics_data.tar.gz
+"""
+
 import pandas as pd
 import numpy as np
 
+RAW_DATA_DIR = "../data/raw"
+CLEAN_DATA_DIR = "../data/clean"
 
 CONTINENTS = ["unknown", "africa", "asia", "europe",
               "north america", "oceania", "south america"]
@@ -10,23 +20,18 @@ CONTINENTS = {c: i+1 for i, c in enumerate(CONTINENTS)}
 
 
 def generate_countries_table():
-    """
-    This method generates the countries table.
-    """
-
-    raw_filenames = [
-        "../raw_data/Homicide_0-14.csv",
-        "../raw_data/Homicide_15-29.csv",
-        "../raw_data/Homicide_30-44.csv",
-        "../raw_data/Homicide_45-59.csv",
-        "../raw_data/Homicide_60-123.csv",
-        "../raw_data/Murdered_Females.csv",
-        "../raw_data/Murdered_Males.csv",
-        "../raw_data/Political_Culture.csv",
-    ]
+    raw_filenames = [RAW_DATA_DIR + x for x in [
+        "/Homicide_0-14.csv",
+        "/Homicide_15-29.csv",
+        "/Homicide_30-44.csv",
+        "/Homicide_45-59.csv",
+        "/Homicide_60-123.csv",
+        "/Murdered_Females.csv",
+        "/Murdered_Males.csv",
+        "/Political_Culture.csv"]]
 
     # load continents data frame
-    cc_df = pd.read_csv("../raw_data/Countries_Continents.csv")
+    cc_df = pd.read_csv(RAW_DATA_DIR + "/Countries_Continents.csv")
 
     # convert country to lower case
     cc_df['Country'] = cc_df['Country'].apply(lambda x: x.lower())
@@ -58,54 +63,51 @@ def generate_countries_table():
     df = pd.DataFrame(data=country_table)
     # start id from 1 instead of 0
     df.index = np.arange(1, len(df) + 1)
-    df.to_csv("../fixed_data/country.csv", index=True, index_label="id")
+    df.to_csv(CLEAN_DATA_DIR + "/country.csv", index=True, index_label="id")
 
 
 def generate_homicides_table():
-    """
-    This method generates homicides table
-    """
-    countries = pd.read_csv("../fixed_data/country.csv")
+    countries = pd.read_csv(CLEAN_DATA_DIR + "/country.csv")
 
     raw_files = [
         {
-            "path": "../raw_data/Homicide_0-14.csv",
+            "path": RAW_DATA_DIR + "/Homicide_0-14.csv",
             "age_from": 0,
             "age_to": 14,
             "gender": None
         },
         {
-            "path": "../raw_data/Homicide_15-29.csv",
+            "path": RAW_DATA_DIR + "/Homicide_15-29.csv",
             "age_from": 15,
             "age_to": 29,
             "gender": None
         },
         {
-            "path": "../raw_data/Homicide_30-44.csv",
+            "path": RAW_DATA_DIR + "/Homicide_30-44.csv",
             "age_from": 30,
             "age_to": 44,
             "gender": None
         },
         {
-            "path": "../raw_data/Homicide_45-59.csv",
+            "path": RAW_DATA_DIR + "/Homicide_45-59.csv",
             "age_from": 45,
             "age_to": 59,
             "gender": None
         },
         {
-            "path": "../raw_data/Homicide_60-123.csv",
+            "path": RAW_DATA_DIR + "/Homicide_60-123.csv",
             "age_from": 60,
             "age_to": 123,
             "gender": None
         },
         {
-            "path": "../raw_data/Murdered_Females.csv",
+            "path": RAW_DATA_DIR + "/Murdered_Females.csv",
             "age_from": None,
             "age_to": None,
             "gender": "F"
         },
         {
-            "path": "../raw_data/Murdered_Males.csv",
+            "path": RAW_DATA_DIR + "/Murdered_Males.csv",
             "age_from": None,
             "age_to": None,
             "gender": "M"
@@ -137,18 +139,15 @@ def generate_homicides_table():
     df = pd.DataFrame(data=homicides_data)
     # start id from 1 instead of 0
     df.index = np.arange(1, len(df) + 1)
-    df.to_csv("../fixed_data/homicides.csv", index_label="id")
+    df.to_csv(CLEAN_DATA_DIR + "/homicides.csv", index_label="id")
 
 
 def generate_political_culture():
-    """
-    This method generates political culture table
-    """
-    countries = pd.read_csv("../fixed_data/country.csv")
+    countries = pd.read_csv(CLEAN_DATA_DIR + "/country.csv")
 
     political_culture_data = []
 
-    df = pd.read_csv("../raw_data/Political_Culture.csv")
+    df = pd.read_csv(RAW_DATA_DIR + "/Political_Culture.csv")
     for row in df.to_dict(orient='records'):
         country = row['country'].lower()
         for key in row:
@@ -168,7 +167,7 @@ def generate_political_culture():
     df = pd.DataFrame(data=political_culture_data)
     # start id from 1 instead of 0
     df.index = np.arange(1, len(df) + 1)
-    df.to_csv("../fixed_data/political_culture.csv", index_label="id")
+    df.to_csv(CLEAN_DATA_DIR + "/political_culture.csv", index_label="id")
 
 
 if __name__ == "__main__":
