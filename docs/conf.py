@@ -22,7 +22,7 @@ html_theme_options = {
     'style_nav_header_background': '#212529;',
     'collapse_navigation': False,
     'sticky_navigation': True,
-    'navigation_depth': 3,
+    'navigation_depth': 2,
     'includehidden': True,
     'titles_only': False
 }
