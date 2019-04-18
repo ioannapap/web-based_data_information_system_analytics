@@ -22,6 +22,7 @@ Welcome to **Murders Analytics** project documentation.
    :maxdepth: 2
 
         Introduction <introduction.rst>
+        Project setup <setup.rst>
         Database <database.rst>
         Architecture <architecture.rst>
         Users Manual <usersmanual.rst>
