@@ -1,11 +1,11 @@
-var express = require('express');
-var controllers = require('./controllers');
+const express = require('express');
+const controllers = require('./controllers');
 
-var router = express.Router();
+const router = new express.Router();
 
 router.route('/').get(controllers.getRoutes);
 router.route('/country').get(controllers.getCountries);
-router.route('/continent').post(controllers.getContinents);
+router.route('/continent').get(controllers.getContinents);
 router.route('/homicides').get(controllers.getHomicides);
 router.route('/culture').get(controllers.getCulture);
 

@@ -1,16 +1,16 @@
-var conf = require('./conf')
-var mysql = require('mysql');
+const conf = require('./conf');
+const mysql = require('mysql');
 
-var connection = mysql.createConnection({
-    host: conf.database.host,
-    user: conf.database.username,
-    password: conf.database.password,
-    database: conf.database.name,
-    port: conf.database.port
+const connection = mysql.createConnection({
+  host: conf.database.host,
+  user: conf.database.username,
+  password: conf.database.password,
+  database: conf.database.name,
+  port: conf.database.port,
 });
 
 connection.connect(function(err) {
-    if (err) throw err;
+  if (err) throw err;
 });
 
 module.exports = connection;

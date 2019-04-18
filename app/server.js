@@ -1,11 +1,12 @@
-var express = require('express');
-var conf = require('./conf')
-var routes = require('./routes');
-var app = express();
+const express = require('express');
+const conf = require('./conf');
+const routes = require('./routes');
+const app = express();
 
 app.set('view engine', 'ejs');
 app.use('/api', routes);
+app.use(express.static('static'));
 
-app.listen(conf.webserver.port, function () {
-    console.log(`API listening on http://localhost:${conf.webserver.port}/api`);
+app.listen(conf.webserver.port, function() {
+  console.log(`API listening on http://localhost:${conf.webserver.port}/api`);
 });
