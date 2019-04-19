@@ -71,21 +71,24 @@ const app = new Vue({
           var traces = {}
           for (let i in res.results) {
             let entry = res.results[i]
+            console.log(entry)
             if (!traces.hasOwnProperty(entry.country_name)) {
               traces[entry.country_name] = {
                 x: [], y: [], name: entry.country_name, type: 'scatter'
               }
             }
             traces[entry.country_name].x.push(entry.year)
-            traces[entry.country_name].y.push(entry.deathnums)
+            traces[entry.country_name].y.push(entry.homicides)
           }
           Plotly.react(chartNodeID, Object.values(traces), layout, settings)
         })
     },
 
     createCharts () {
-      this.createPoliticalCultureChart()
-      this.createHomicidesChart()  
+      if (this.checkedCountries.length > 0) {
+        this.createPoliticalCultureChart()
+        this.createHomicidesChart()  
+      }
     }
   },
 

@@ -1,10 +1,29 @@
 const db = require('./database');
 const validators = require('./validators');
+const squel = require('squel');
+
+/**
+ * Marks a response a json
+ * @param {object} response - Express response
+ */
+function markJson(response) {
+  response.setHeader('Content-Type', 'application/json');
+}
+
+/**
+ * Converts an object to Json
+ * @param {object} obj - The target object
+ * @return {str} -  A string representation as JSON of the object.
+ */
+function asJson(obj) {
+  return JSON.stringify(obj);
+}
 
 module.exports = {
   getRoutes: function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.status(200).send(JSON.stringify({
+    /** Returns the available API endpoints. */
+    markJson(res);
+    res.status(200).send(asJson({
       routes: [
         '/country', '/continent', '/homicides', '/culture',
       ],
@@ -12,20 +31,20 @@ module.exports = {
   },
 
   getCountries: function(req, res) {
-    const q = `SELECT country.id, country.name, continent.name as "continent"
-      FROM murdersdb.country
-      INNER JOIN murdersdb.continent
-      ON (country.continent_id = continent.id)
-      ORDER BY country.name ASC`;
+    /** Returns a list of countries and their continents. */
+    markJson(res);
+    const q = squel.select().from('country');
+    q.field('country.id').field('country.name').field('c.name', 'continent');
+    q.join('continent', 'c', 'country.continent_id = c.id');
+    q.order('country.name');
 
-    db.query(q, function(error, results) {
-      res.setHeader('Content-Type', 'application/json');
+    db.query(q.toString(), function(error, results) {
       if (!error) {
-        res.status(200).send(JSON.stringify({
+        res.status(200).send(asJson({
           results: results,
         }));
       } else {
-        res.status(400).send(JSON.stringify({
+        res.status(400).send(asJson({
           'message': error,
         }));
       }
@@ -33,17 +52,19 @@ module.exports = {
   },
 
   getContinents: function(req, res) {
-    const q = `SELECT continent.id, continent.name
-      FROM continent`;
+    /** Returns a list of continents. */
+    markJson(res);
 
-    db.query(q, function(error, results) {
-      res.setHeader('Content-Type', 'application/json');
+    const q = squel.select().from('continent');
+    q.field('continent.id').field('continent.name');
+
+    db.query(q.toString(), function(error, results) {
       if (!error) {
-        res.status(200).send(JSON.stringify({
+        res.status(200).send(asJson({
           results: results,
         }));
       } else {
-        res.status(400).send(JSON.stringify({
+        res.status(400).send(asJson({
           'message': error,
         }));
       }
@@ -52,9 +73,9 @@ module.exports = {
 
   getHomicides: function(req, res) {
     /**
-      * This endpoint returns the homicides.
+      * This endpoint returns homicides information.
       *
-      * Available Filters
+      * GET parameters
       * @param {int} age_from - Minimum age
       * @param {int} age_to - Maximum age
       * @param {str} gender - Gender can be 'F' or 'M'
@@ -63,67 +84,55 @@ module.exports = {
       * @param {str} country_ids - Comma sep IDs of the countries
       * @param {int} years_group - Group of years for average (10 -> decades)
       */
+    markJson(res);
 
-    let qu = `SELECT year, deathnums, age_from,
-      age_to, country.name AS country_name
-      FROM homicides INNER JOIN country
-      ON (country.id = homicides.country_id)`;
+    let q = squel.select().from('homicides');
+    q.join('country', null, 'country.id = homicides.country_id');
 
-    if (Object.keys(req.query).length > 0) {
-      qu += ' WHERE ';
+    if (req.query.country_ids && req.query.country_ids.length > 0
+      && validators.isListOfInt(req.query.country_ids)) {
+      q.where(`country_id IN (${req.query.country_ids})`);
     }
-
     if (req.query.age_from) {
-      qu += 'age_from >= ' + req.query.age_from + ' AND ';
+      q.where('age_from >= ' + req.query.age_from);
     }
     if (req.query.age_to) {
-      qu += 'age_to <= ' + req.query.age_to + ' AND ';
+      q.where('age_to <= ' + req.query.age_to);
     }
     if (req.query.gender) {
-      qu += 'gender = \'' + req.query.gender + '\' AND ';
+      qu.where(`gender = ${req.query.gender}`);
     }
     if (req.query.year_from) {
-      qu += 'year >= ' + req.query.year_from + ' AND ';
+      q.where('year >= ' + req.query.year_from);
     }
     if (req.query.year_to) {
-      qu += 'year <= ' + req.query.year_to + ' AND ';
-    }
-    if (req.query.country_ids && req.query.country_ids.length > 0 &&
-      validators.isListOfInt(req.query.country_ids)) {
-      qu += `country_id IN (${req.query.country_ids}) AND `;
-    }
-
-    if (qu.endsWith('AND ')) {
-      qu = qu.substring(0, qu.length - 4);
+      q.where('year <= ' + req.query.year_to);
     }
 
     if (!req.query.years_group) {
-      qu += ' ORDER BY year';
+      q.group('year, country_id');
+      q.order('year');
     }
 
     if (req.query.years_group) {
-      qu = qu.replace(
-          `year, deathnums,age_from, age_to, country.name AS country`,
-          `year DIV ${req.query.years_group} AS years_group,
-            AVG(deathnums) as deathnums`);
-      if (Object.keys(req.query).length === 1) {
-        qu = qu.replace('WHERE ', '');
-      }
-      qu += ' GROUP BY years_group';
-
-      qu = `SELECT avg_deathnums, years_group*${req.query.years_group}
-        as from_year FROM (${qu}) a`;
+      q.field(`year DIV ${req.query.years_group} AS years_group`);
+      q.field('AVG(deathnums) as avg_deathnums');
+      q.group('years_group');
+      q = squel.select().from(q, 't');
+      q.field('avg_deathnums');
+      q.field(`years_group*${req.query.years_group}`, 'from_year');
+    } else {
+      q.field('year').field('country.name', 'country_name');
+      q.field('avg(deathnums)', 'homicides');
     }
 
-    db.query(qu, function(error, results) {
-      res.setHeader('Content-Type', 'application/json');
-
+    db.query(q.toString(), function(error, results) {
       if (!error) {
-        res.status(200).send(JSON.stringify({
+        res.status(200).send(asJson({
           results: results,
         }));
       } else {
-        res.status(400).send(JSON.stringify({
+        res.status(400).send(asJson({
           'message': error,
         }));
       }
@@ -139,42 +148,32 @@ module.exports = {
      * @param {int} year_to - Maximum year
      * @param {str} country_ids - (required) Comma sep IDs of the countries
      */
+    markJson(res);
 
-    let qu = `SELECT year, \`index\` as political_index,
-      country.name AS country_name
-      FROM political_culture INNER JOIN country
-      ON (country.id = political_culture.country_id)`;
+    const q = squel.select().from('political_culture');
+    q.field('year');
+    q.field('`index`', 'political_index').field('name', 'country_name');
+    q.join('country', null, 'country.id = political_culture.country_id');
+    q.order('year');
 
-    if (Object.keys(req.query).length > 0) {
-      qu += ' WHERE ';
+    if (req.query.country_ids && req.query.country_ids.length > 0
+      && validators.isListOfInt(req.query.country_ids)) {
+      q.where(`country_id IN (${req.query.country_ids})`);
     }
-
     if (req.query.year_from) {
-      qu += '`year` >= ' + req.query.year_from + ' AND ';
+      q.where('year >= ' + req.query.year_from);
     }
     if (req.query.year_to) {
-      qu += '`year` <= ' + req.query.year_to + ' AND ';
-    }
-    if (req.query.country_ids && req.query.country_ids.length > 0 &&
-      validators.isListOfInt(req.query.country_ids)) {
-      qu += 'country_id IN (' + req.query.country_ids + ') AND ';
+      q.where('year <= ' + req.query.year_to);
     }
 
-    if (qu.endsWith('AND ')) {
-      qu = qu.substring(0, qu.length - 4);
-    }
-
-    qu += ' ORDER BY `year`';
-
-    db.query(qu, function(error, results) {
-      res.setHeader('Content-Type', 'application/json');
-
+    db.query(q.toString(), function(error, results) {
       if (!error) {
-        res.status(200).send(JSON.stringify({
+        res.status(200).send(asJson({
           results: results,
         }));
       } else {
-        res.status(400).send(JSON.stringify({
+        res.status(400).send(asJson({
           'message': error,
         }));
       }

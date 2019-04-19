@@ -26,7 +26,8 @@
   "homepage": "https://github.com/ioannapap/murders_analytics#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "squel": "^5.12.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",

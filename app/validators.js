@@ -5,4 +5,3 @@ module.exports = {
     return regex.test(val);
   },
 };
-
