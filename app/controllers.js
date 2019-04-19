@@ -102,9 +102,10 @@ module.exports = {
     }
 
     if (req.query.years_group) {
-      qu = qu.replace(`year, deathnums, age_from, age_to, country.name AS country`,
-          `year DIV ${req.query.years_group} AS years_group, AVG(deathnums) as deathnums`
-      );
+      qu = qu.replace(
+          `year, deathnums,age_from, age_to, country.name AS country`,
+          `year DIV ${req.query.years_group} AS years_group,
+            AVG(deathnums) as deathnums`);
       if (Object.keys(req.query).length === 1) {
         qu = qu.replace('WHERE ', '');
       }
