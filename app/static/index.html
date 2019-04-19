@@ -10,6 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js?_ga=2.219453403.379973601.1555660325-92645605.1555440134"></script>
     <title>Murders Analytics</title>
 </head>
 
@@ -21,25 +22,46 @@
                     <i class="fas fa-search"></i>
                     Murders Analytics
                 </h1>
-
                 <p class="subtitle">
                     Analytics about murders related data.
                 </p>
             </div>
 
             <div class="content">
-                {{ message }}
-            </div>
+                <button class="button is-small is-link"
+                    :disabled="activePage === 'homicides'"
+                    @click="activePage='homicides'">Homicides</button>
 
-            <footer class="footer">
-                <div class="content has-text-centered">
-                    <p>
-                        <strong>Murders analytics</strong> by Dimitrios N. Kouveris, Ioanna Papagianni and Konstantinos
-                        Neiros<br> Developed for <span class="is-color-primary">DBMSia</span> course<br>
-                        <small>Computer Science &amp; Engineering Department, UOI</small>
-                    </p>
+                <button class="button is-small is-link"
+                    :disabled="activePage === 'culture'"
+                    @click="activePage='culture'">Political culture</button>
+
+                <div class="columns">
+                    <div class="column is-3 filters">
+                        <div class="title is-6">Select countries</div>
+                        <div class="country-select-form">
+                            <div class="country-select-entry" v-for="country in countries">
+                                <input type="checkbox" :id="country.id" :value="country.id" v-model="checkedCountries" />
+                                <label :for="country.id">{{ country.name | capitalize }}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="page" id="homicides" v-show="activePage === 'homicides'">
+                            <div class="title is-4 has-text-centered">Homicides</div>
+                            <div class="subtitle is-6 has-text-centered">Homicides analytics</div>    
+                            <div id="homicides-chart" class="column"></div>
+                        </div>
+
+                        <div class="page" id="culture" v-show="activePage === 'culture'">
+                            <div class="title is-4 has-text-centered">Political culture</div>
+                            <div class="subtitle is-6 has-text-centered">Compare political culture of countries</div>    
+                            <div id="culture-chart" class="column"></div>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+            </div>
         </section>
     </div>
 

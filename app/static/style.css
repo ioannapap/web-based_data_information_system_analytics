@@ -1,0 +1,23 @@
+.country-select-form {
+    max-height: 35vh;
+    overflow-y: scroll;
+}
+
+.content {
+    margin-top: 3vh;
+}
+
+.page {
+    border: 1px solid rgb(228, 224, 217);
+    border-radius: 0 4px;
+    padding: 10px 20px;
+    min-height: 60vh;
+}
+
+.button.is-small {
+    border-radius: 0;
+}
+
+.filters {
+    margin-top: 20px;
+}

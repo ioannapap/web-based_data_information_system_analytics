@@ -1,4 +1,5 @@
 const db = require('./database');
+const validators = require('./validators');
 
 module.exports = {
   getRoutes: function(req, res) {
@@ -11,12 +12,11 @@ module.exports = {
   },
 
   getCountries: function(req, res) {
-    const q = `
-            SELECT country.id, country.name, continent.name as "continent_name"
-            FROM murdersdb.country
-            INNER JOIN murdersdb.continent
-            ON (country.continent_id = continent.id)
-        `;
+    const q = `SELECT country.id, country.name, continent.name as "continent"
+      FROM murdersdb.country
+      INNER JOIN murdersdb.continent
+      ON (country.continent_id = continent.id)
+      ORDER BY country.name ASC`;
 
     db.query(q, function(error, results) {
       res.setHeader('Content-Type', 'application/json');
@@ -33,10 +33,8 @@ module.exports = {
   },
 
   getContinents: function(req, res) {
-    const q = `
-            SELECT continent.id, continent.name
-            FROM continent
-        `;
+    const q = `SELECT continent.id, continent.name
+      FROM continent`;
 
     db.query(q, function(error, results) {
       res.setHeader('Content-Type', 'application/json');
@@ -54,22 +52,22 @@ module.exports = {
 
   getHomicides: function(req, res) {
     /**
-         * This endpoint returns the homicides.
-         *
-         * Available Filters
-         * @param {int} age_from - Minimum age
-         * @param {int} age_to - Maximum age
-         * @param {str} gender - Gender can be 'F' or 'M'
-         * @param {int} year_from  - Minimum year
-         * @param {int} year_to - Maximum year
-         * @param {int} country_id - ID of the country
-         * @param {int} years_group - Group of years for average (10 -> decades)
-         */
+      * This endpoint returns the homicides.
+      *
+      * Available Filters
+      * @param {int} age_from - Minimum age
+      * @param {int} age_to - Maximum age
+      * @param {str} gender - Gender can be 'F' or 'M'
+      * @param {int} year_from  - Minimum year
+      * @param {int} year_to - Maximum year
+      * @param {str} country_ids - Comma sep IDs of the countries
+      * @param {int} years_group - Group of years for average (10 -> decades)
+      */
 
-    let qu = `
-            SELECT year, deathnums, age_from, age_to, country.name AS country_name
-            FROM homicides INNER JOIN country ON (country.id = homicides.country_id)
-        `;
+    let qu = `SELECT year, deathnums, age_from,
+      age_to, country.name AS country_name
+      FROM homicides INNER JOIN country
+      ON (country.id = homicides.country_id)`;
 
     if (Object.keys(req.query).length > 0) {
       qu += ' WHERE ';
@@ -90,8 +88,9 @@ module.exports = {
     if (req.query.year_to) {
       qu += 'year <= ' + req.query.year_to + ' AND ';
     }
-    if (req.query.country_id) {
-      qu += 'country_id = ' + req.query.country_id + ' AND ';
+    if (req.query.country_ids && req.query.country_ids.length > 0 &&
+      validators.isListOfInt(req.query.country_ids)) {
+      qu += `country_id IN (${req.query.country_ids}) AND `;
     }
 
     if (qu.endsWith('AND ')) {
@@ -103,16 +102,16 @@ module.exports = {
     }
 
     if (req.query.years_group) {
-      qu = qu.replace(
-          'year, deathnums, age_from, age_to, country.name AS country_name',
-          '`year` DIV ' + req.query.years_group + ' AS years_group, AVG(deathnums) as avg_deathnums'
+      qu = qu.replace(`year, deathnums, age_from, age_to, country.name AS country`,
+          `year DIV ${req.query.years_group} AS years_group, AVG(deathnums) as deathnums`
       );
       if (Object.keys(req.query).length === 1) {
         qu = qu.replace('WHERE ', '');
       }
       qu += ' GROUP BY years_group';
 
-      qu = 'SELECT avg_deathnums, years_group*' + req.query.years_group + ' as from_year FROM (' + qu + ') a';
+      qu = `SELECT avg_deathnums, years_group*${req.query.years_group}
+        as from_year FROM (${qu}) a`;
     }
 
     db.query(qu, function(error, results) {
@@ -132,20 +131,18 @@ module.exports = {
 
   getCulture: function(req, res) {
     /**
-         * This endpoint returns the homicides.
-         *
-         * Available Filters
-         * @param {int} year_from  - Minimum year
-         * @param {int} year_to - Maximum year
-         * @param {int} country_id - ID of the country
-         */
+     * This endpoint returns the homicides.
+     *
+     * Available Filters
+     * @param {int} year_from  - Minimum year
+     * @param {int} year_to - Maximum year
+     * @param {str} country_ids - (required) Comma sep IDs of the countries
+     */
 
-    let qu = `
-            SELECT "year", "index" as political_index,
-              country.name AS country_name
-            FROM political_culture INNER JOIN country
-            ON (country.id = political_culture.country_id)
-        `;
+    let qu = `SELECT year, \`index\` as political_index,
+      country.name AS country_name
+      FROM political_culture INNER JOIN country
+      ON (country.id = political_culture.country_id)`;
 
     if (Object.keys(req.query).length > 0) {
       qu += ' WHERE ';
@@ -157,8 +154,9 @@ module.exports = {
     if (req.query.year_to) {
       qu += '`year` <= ' + req.query.year_to + ' AND ';
     }
-    if (req.query.country_id) {
-      qu += 'country_id = ' + req.query.country_id + ' AND ';
+    if (req.query.country_ids && req.query.country_ids.length > 0 &&
+      validators.isListOfInt(req.query.country_ids)) {
+      qu += 'country_id IN (' + req.query.country_ids + ') AND ';
     }
 
     if (qu.endsWith('AND ')) {
