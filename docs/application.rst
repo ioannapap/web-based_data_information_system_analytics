@@ -73,11 +73,49 @@ API
 The API server is used for direct communication with the database. The API
 is written in node.js.
 
+Below you can see the available API endpoints.
+
+.. code-block:: bash
+
+    Fetch a list of the available API routes
+    Route: /
+
+    Fetch a list of the countries
+    Route: /countries
+
+    Fetch a list of the continents
+    Route: /continent
+
+    Fetch homicides information
+    Route: /homicides
+    Params:
+        age_from - The minimum age of the human in the results
+        age_to - The maximum age of the human in the results
+        gender - The gender of the human in the results ('F' or 'M')
+        year_from - Results start from this year
+        year_to - Results stop to this year
+        country_ids - A list of the country IDs in the results
+        years_group - An integer for grouping the years
+                      e.g. 10 for average per decade
+
+    Fetch political culture information
+    Route: /culture
+    Params:
+        year_from - Results start from this year
+        year_to - Results stop to this year
+        country_ids - A list of the country IDs in the results
+        years_group - An integer for grouping the years
+                      e.g. 10 for average per decade
+
+*Note: All the API endpoints accept GET method*
+
 
 Frontend
 --------
-A static server is used for serving the frontend files and consuming data from
-the API. Frontend static files are html, css, javascript and media files.
+The Frontend is a SPA (Single page application), implemented with Vue.JS.
+A static server inside the API server is used for serving the frontend
+files that consume data from the API.
+Frontend static files are html, css, javascript and media files.
 
 
 The following diagram displays the data flow, throught the app.
