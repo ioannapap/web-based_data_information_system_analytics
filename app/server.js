@@ -9,6 +9,7 @@ app.use(express.static('static'));
 
 app.listen(conf.webserver.port, function() {
   console.log(`API listening on http://localhost:${conf.webserver.port}/api`);
+  console.log(`Frontend is visible on http://localhost:${conf.webserver.port}/`);
 });
 
 module.exports = app;

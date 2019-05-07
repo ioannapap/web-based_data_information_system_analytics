@@ -6,8 +6,8 @@ project = 'Murders Analytics'
 copyright = ''
 author = ''
 
-version = 'v0.1.0'
-release = 'v0.1.0'
+version = 'v0.1.1'
+release = 'v0.1.1'
 extensions = ['recommonmark', 'sphinx.ext.intersphinx']
 templates_path = ['_templates']
 source_suffix = '.rst'

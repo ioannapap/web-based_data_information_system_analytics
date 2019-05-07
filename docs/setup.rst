@@ -73,8 +73,8 @@ database and serves data to the frontend. The API is running on node.js and
 below we're going to see the steps required for running the API server.
 
 Install node.js, node.js is a javascript runtime environment that enables
-javascript code to be execute on the server side. Npm is a package manager
-for node.
+javascript code to be executed on the server side. Npm is a package manager
+for node.js.
 
 .. code-block:: bash
 
@@ -88,4 +88,13 @@ configuration variables can be edited on *conf.js*.
 .. code-block:: bash
 
     cd app
-    npm start server
+    npm run server
+
+If everything went correctly you should see the following message
+
+.. code-block:: bash
+
+    API listening on http://localhost:xxxx/api
+    Frontend is visible on http://localhost:xxxx/
+
+You can now open your browser at the frontend url to interact with the app.

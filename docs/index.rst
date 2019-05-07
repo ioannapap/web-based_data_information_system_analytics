@@ -4,10 +4,10 @@ Murders Analytics documentation.
 
 Welcome to **Murders Analytics** project documentation.
 
-| CSE Dept. - CSExxx, 2019
+| CSE Dept. - CSE030, 2019
 | Dimitrios Kouveris (2730)
-| Ioanna Papagiani (xxxx)
-| Konstantinos Neiros (xxxx)
+| Ioanna Papagiani (2790)
+| Konstantinos Neiros (2503)
 
 
 .. only:: html
@@ -24,6 +24,6 @@ Welcome to **Murders Analytics** project documentation.
         Introduction <introduction.rst>
         Project setup <setup.rst>
         Database <database.rst>
-        Architecture <architecture.rst>
+        Application <application.rst>
         Users Manual <usersmanual.rst>
         Versions Changelog <versions-changelog.rst>
