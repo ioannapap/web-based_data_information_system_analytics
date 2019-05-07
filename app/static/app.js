@@ -10,9 +10,10 @@ const app = new Vue({
     activePage: 'homicides',
     baseSettings: {
       responsive: true
-    }
+    },
+    chartType: 'bar'
   },
-  
+
   methods: {
     deepClone (obj) {
       return JSON.parse(JSON.stringify(obj))
@@ -44,7 +45,7 @@ const app = new Vue({
             let entry = res.results[i]
             if (!traces.hasOwnProperty(entry.country_name)) {
               traces[entry.country_name] = {
-                x: [], y: [], name: entry.country_name, type: 'scatter'
+                x: [], y: [], name: entry.country_name, type: this.chartType
               }
             }
             traces[entry.country_name].x.push(entry.year)
@@ -71,10 +72,9 @@ const app = new Vue({
           var traces = {}
           for (let i in res.results) {
             let entry = res.results[i]
-            console.log(entry)
             if (!traces.hasOwnProperty(entry.country_name)) {
               traces[entry.country_name] = {
-                x: [], y: [], name: entry.country_name, type: 'scatter'
+                x: [], y: [], name: entry.country_name, type: this.chartType
               }
             }
             traces[entry.country_name].x.push(entry.year)
@@ -108,6 +108,14 @@ const app = new Vue({
   watch: {
     checkedCountries () {
       this.createCharts()
+    },
+    chartType () {
+      this.createCharts()
+    },
+    activePage () {
+      /* When activePage changes, trigger window resize event so that
+       * charts can fit the new bounds */
+      window.setTimeout(() => {window.dispatchEvent(new Event('resize'));}, 200)
     }
   }
 });

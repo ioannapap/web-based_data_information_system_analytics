@@ -45,6 +45,13 @@
                                 <label :for="country.id">{{ country.name | capitalize }}</label>
                             </div>
                         </div>
+
+                        <div class="select is-rounded" style="margin-top: 5%;">
+                            <select v-model="chartType">
+                                <option value="bar">Bar chart</option>
+                                <option value="scatter">Line chart</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="column">
