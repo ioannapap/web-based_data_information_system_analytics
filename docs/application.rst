@@ -81,7 +81,7 @@ Below you can see the available API endpoints.
     Route: /
 
     Fetch a list of the countries
-    Route: /countries
+    Route: /country
 
     Fetch a list of the continents
     Route: /continent
@@ -96,7 +96,7 @@ Below you can see the available API endpoints.
         year_to - Results stop to this year
         country_ids - A list of the country IDs in the results
         years_group - An integer for grouping the years
-                      e.g. 10 for average per decade
+                      e.g. 10 for average per decade for the specified countries
 
     Fetch political culture information
     Route: /culture
@@ -104,8 +104,6 @@ Below you can see the available API endpoints.
         year_from - Results start from this year
         year_to - Results stop to this year
         country_ids - A list of the country IDs in the results
-        years_group - An integer for grouping the years
-                      e.g. 10 for average per decade
 
 *Note: All the API endpoints accept GET method*
 

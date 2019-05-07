@@ -100,7 +100,7 @@ module.exports = {
       q.where('age_to <= ' + req.query.age_to);
     }
     if (req.query.gender) {
-      qu.where(`gender = ${req.query.gender}`);
+      q.where(`gender = '${req.query.gender}'`);
     }
     if (req.query.year_from) {
       q.where('year >= ' + req.query.year_from);
@@ -147,11 +147,12 @@ module.exports = {
      * @param {int} year_from  - Minimum year
      * @param {int} year_to - Maximum year
      * @param {str} country_ids - (required) Comma sep IDs of the countries
-     * @param {int} years_group - Group of years for average (10 -> decades)
      */
     markJson(res);
 
     const q = squel.select().from('political_culture');
+    q.field('year');
+    q.field('`index`', 'political_index').field('name', 'country_name');
     q.join('country', null, 'country.id = political_culture.country_id');
     q.order('year');
 
@@ -164,18 +165,6 @@ module.exports = {
     }
     if (req.query.year_to) {
       q.where('year <= ' + req.query.year_to);
-    }
-
-    if (req.query.years_group) {
-      q.field(`year DIV ${req.query.years_group} AS years_group`);
-      q.field('AVG(index) as avg_political_index');
-      q.group('years_group');
-      q = squel.select().from(q, 't');
-      q.field('avg_political_index');
-      q.field(`years_group*${req.query.years_group}`, 'from_year');
-    } else {
-      q.field('year');
-      q.field('`index`', 'political_index').field('name', 'country_name');
     }
 
     db.query(q.toString(), function(error, results) {
