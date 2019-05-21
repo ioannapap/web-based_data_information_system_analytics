@@ -68,6 +68,16 @@
                                 <option v-for="year in availableYears" :value="year">{{ year }}</option>
                             </select>
                         </div>
+
+                        <div class="select is-rounded" style="margin-top: 5%;">
+                            <select v-model="yearsGroup">
+                                <option value="">No years group</option>
+                                <option value="5">5 years group</option>
+                                <option value="10">Decades group</option>
+                                <option value="15">15 years group</option>
+                                <option value="20">20 years group</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="column">

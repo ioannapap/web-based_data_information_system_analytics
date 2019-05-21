@@ -18,7 +18,8 @@ const app = new Vue({
     },
     startYear: 2000,
     endYear: 2019,
-    availableYears: []
+    availableYears: [],
+    yearsGroup: ''
   },
 
   methods: {
