@@ -36,6 +36,10 @@
                     :disabled="activePage === 'culture'"
                     @click="activePage='culture'">Political culture</button>
 
+                <button class="button is-small is-link"
+                    :disabled="activePage === 'combined'"
+                    @click="activePage='combined'">Combined</button>
+
                 <div class="columns">
                     <div class="column is-3 filters">
                         <div class="title is-6">Select countries</div>
@@ -65,6 +69,18 @@
                             <div class="title is-4 has-text-centered">Political culture</div>
                             <div class="subtitle is-6 has-text-centered">Compare political culture of countries</div>    
                             <div id="culture-chart" class="column"></div>
+                        </div>
+
+                        <div class="page" id="combined" v-show="activePage === 'combined'">
+                            <button class="button is-small is-primary" @click="createCombinedChart">
+                                <i class="fas fa-sync"></i>
+                                <div style="margin-left: 5px;">Refresh chart</div>
+                            </button>
+                            <div class="title is-4 has-text-centered">Political culture & Homicides</div>
+                            <div class="subtitle is-6 has-text-centered">
+                                Compare political culture based on homicides of countries
+                            </div>
+                            <div id="combined-chart" class="column"></div>
                         </div>
                     </div>
                 </div>

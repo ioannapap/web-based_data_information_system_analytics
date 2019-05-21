@@ -11,7 +11,11 @@ const app = new Vue({
     baseSettings: {
       responsive: true
     },
-    chartType: 'bar'
+    chartType: 'bar',
+    data: {
+      politicalCulture: [],
+      homicides: []
+    }
   },
 
   methods: {
@@ -36,11 +40,13 @@ const app = new Vue({
       layout.yaxis = { title: { text: 'Political culture index' } }
 
       Plotly.purge(chartNodeID)
+      this.data.politicalCulture = []
 
       params.country_ids = this.checkedCountries.join(',')
       $.get({ url: '/api/culture', data: params })
         .then(res => {
           var traces = {}
+          this.data.politicalCulture = res.results
           for (let i in res.results) {
             let entry = res.results[i]
             if (!traces.hasOwnProperty(entry.country_name)) {
@@ -65,11 +71,13 @@ const app = new Vue({
       layout.yaxis = { title: { text: 'Homicides' } }
   
       Plotly.purge(chartNodeID)
+      this.data.homicides = []
   
       params.country_ids = this.checkedCountries.join(',')
       $.get({ url: '/api/homicides', data: params })
         .then(res => {
           var traces = {}
+          this.data.homicides = res.results
           for (let i in res.results) {
             let entry = res.results[i]
             if (!traces.hasOwnProperty(entry.country_name)) {
@@ -84,10 +92,46 @@ const app = new Vue({
         })
     },
 
+    createCombinedChart() {
+      let chartNodeID = 'combined-chart'
+      let layout = this.deepClone(this.baseLayout)
+      let settings = this.deepClone(this.baseSettings)
+  
+      layout.xaxis = { title: { text: 'Date' } }
+      layout.yaxis = { title: { text: 'Homicides' } }
+      layout.yaxis2 = {
+        title: 'Culture index',
+        overlaying: 'y',
+        side: 'right'
+      }
+  
+      Plotly.purge(chartNodeID)
+
+      let traces = []
+
+      let trace = {x:[], y:[], type:'scatter', mode: 'markers', name: 'Homicides', marker: { size: 7 }}
+      for (let i = 0; i < this.data.homicides.length; i++) {
+        let homicide = this.data.homicides[i]
+        trace.x.push(homicide.year)
+        trace.y.push(homicide.homicides)
+      }
+      traces.push(trace)
+
+      let trace2 = {yaxis: 'y2', x:[], y:[], type:'scatter', mode: 'markers', name: 'Political culture', marker: { size: 7 }}
+      for (let i = 0; i < this.data.politicalCulture.length; i++) {
+        let pc = this.data.politicalCulture[i]
+        trace2.x.push(pc.year)
+        trace2.y.push(pc.political_index)
+      }
+      traces.push(trace2)
+
+      Plotly.react(chartNodeID, traces, layout, settings)
+    },
+
     createCharts () {
       if (this.checkedCountries.length > 0) {
         this.createPoliticalCultureChart()
-        this.createHomicidesChart()  
+        this.createHomicidesChart()
       }
     }
   },
@@ -116,6 +160,9 @@ const app = new Vue({
       /* When activePage changes, trigger window resize event so that
        * charts can fit the new bounds */
       window.setTimeout(() => {window.dispatchEvent(new Event('resize'));}, 200)
+      if (this.activePage === 'combined') {
+        this.createCombinedChart()
+      }
     }
   }
 });
