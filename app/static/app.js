@@ -15,7 +15,10 @@ const app = new Vue({
     data: {
       politicalCulture: [],
       homicides: []
-    }
+    },
+    startYear: 2000,
+    endYear: 2019,
+    availableYears: []
   },
 
   methods: {
@@ -43,6 +46,8 @@ const app = new Vue({
       this.data.politicalCulture = []
 
       params.country_ids = this.checkedCountries.join(',')
+      params.year_from = this.startYear
+      params.year_to = this.endYear
       $.get({ url: '/api/culture', data: params })
         .then(res => {
           var traces = {}
@@ -74,6 +79,8 @@ const app = new Vue({
       this.data.homicides = []
   
       params.country_ids = this.checkedCountries.join(',')
+      params.year_from = this.startYear
+      params.year_to = this.endYear
       $.get({ url: '/api/homicides', data: params })
         .then(res => {
           var traces = {}
@@ -145,6 +152,11 @@ const app = new Vue({
   },
 
   mounted () {
+    /* fill available years */
+    for (let i = 2019; i >= 1950; i--) {
+      this.availableYears.push(i)
+    }
+
     this.loadCountries()
     this.createCharts()
   },
@@ -155,6 +167,20 @@ const app = new Vue({
     },
     chartType () {
       this.createCharts()
+    },
+    startYear(newVal, oldVal) {
+      if (newVal > this.endYear) {
+        this.startYear = oldVal;
+      } else {
+        this.createCharts()
+      }
+    },
+    endYear(newVal, oldVal) {
+      if (newVal < this.startYear) {
+        this.endYear = oldVal;
+      } else {
+        this.createCharts()
+      }
     },
     activePage () {
       /* When activePage changes, trigger window resize event so that

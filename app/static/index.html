@@ -56,6 +56,18 @@
                                 <option value="scatter">Line chart</option>
                             </select>
                         </div>
+
+                        <div class="select is-rounded" style="margin-top: 5%;">
+                            <select v-model="startYear">
+                                <option v-for="year in availableYears" :value="year">{{ year }}</option>
+                            </select>
+                        </div>
+
+                        <div class="select is-rounded" style="margin-top: 5%;">
+                            <select v-model="endYear">
+                                <option v-for="year in availableYears" :value="year">{{ year }}</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="column">
