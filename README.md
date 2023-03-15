@@ -1,4 +1,4 @@
-# Murders analytics
+# A fully web-based data intensive information system (Gapminder, murder analytics)
 
 
 ## Documentation
